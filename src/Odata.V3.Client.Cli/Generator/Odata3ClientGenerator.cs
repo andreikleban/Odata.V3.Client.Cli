@@ -11,10 +11,17 @@ using Odata.V3.Cli.Properties;
 
 namespace Odata.V3.Cli.Generator
 {
+    /// <summary>
+    /// Proxy classes generator
+    /// </summary>
     public class Odata3ClientGenerator
     {
         private readonly ILogger _logger;
 
+        /// <summary>
+        /// ctor
+        /// </summary>
+        /// <param name="logger"></param>
         public Odata3ClientGenerator(ILogger logger)
         {
             _logger = logger;
@@ -101,6 +108,10 @@ namespace Odata.V3.Cli.Generator
             }
         }
 
+        /// <summary>
+        /// Generates proxy classes
+        /// </summary>
+        /// <param name="generatorParams"></param>
         public void GenerateClientProxyClasses(GeneratorParams generatorParams)
         { 
             _logger.LogInformation(Resources.Generating_Client_Proxy____);
@@ -155,18 +166,18 @@ namespace Odata.V3.Cli.Generator
 
                     if (noErrors)
                     {
-                        var csFile = new FileInfo(Path.Combine(generatorParams.OutputPath, generatorParams.Filename + ".cs"));
+                        var csFile = new FileInfo(Path.Combine(generatorParams.OutputDir, generatorParams.OutputFilename + ".cs"));
                         _logger.LogInformation(string.Format(Resources.Writing_file__0_, csFile.FullName));
                         fileHandler.AddFileAsync(tempFile, csFile.FullName).ConfigureAwait(true);
 
-                        var edmxFile = new FileInfo(Path.Combine(generatorParams.OutputPath, generatorParams.Filename + ".edmx"));
+                        var edmxFile = new FileInfo(Path.Combine(generatorParams.OutputDir, generatorParams.OutputFilename + ".edmx"));
                         _logger.LogInformation(string.Format(Resources.Writing_file__0_, edmxFile.FullName));
                         fileHandler.AddFileAsync(edmxTmpFile, edmxFile.FullName).ConfigureAwait(true);
 
                         foreach (var pluginCommand in generatorParams.Plugins)
                         {
                             var plugin = PluginCreator.Create(_logger, generatorParams, pluginCommand);
-                            plugin.PostProcess();
+                            plugin.Execute();
                         }
                     }
                 }

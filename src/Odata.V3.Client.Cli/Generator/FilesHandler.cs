@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Odata.V3.Cli.Generator
 {
-    public class FilesHandler
+    internal class FilesHandler
     {
         public FilesHandler() : base()
         {

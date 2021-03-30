@@ -11,6 +11,9 @@ using Odata.V3.Cli.Generator;
 
 namespace Odata.V3.Cli
 {
+    /// <summary>
+    /// Main class
+    /// </summary>
     public class Program
     {
         private static CommandLineApplication _commandLine;
@@ -25,11 +28,17 @@ namespace Odata.V3.Cli
         private static CommandOption _filenameOption;
         private static CommandOption _pluginsOption;
 
+        /// <summary>
+        /// Application entry point
+        /// </summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
             _commandLine = new CommandLineApplication(false);
             _commandLine.Description = "Client Proxy generator for OData V3";
             _commandLine.Name = typeof(Program).Assembly.GetName().Name;
+
+            var logger = _loggerFactory.CreateLogger(_commandLine.Name);
 
             _commandLine.HelpOption("-?|-h|--help");
             var version = Assembly.GetEntryAssembly()?.GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
@@ -44,13 +53,13 @@ namespace Odata.V3.Cli
 
             _generatorParams = new GeneratorParams();
 
-            _commandLine.OnExecute(Parse);
+            _commandLine.OnExecute(ParseArgs);
 
             try
             {
                 var commandLineParseResult = (ExitCode) _commandLine.Execute(args);
 
-                // ExitCode.Default возвращается при наличии параметров -h или --version
+                // ExitCode.Default returns if options -h or --version is
                 if (commandLineParseResult <= ExitCode.Default)
                     return;
 
@@ -68,37 +77,34 @@ namespace Odata.V3.Cli
 
                 _generatorParams.Configuration = new ConfigurationBuilder().AddCommandLine(_commandLine.RemainingArguments.ToArray()).Build();
 
-                var generator = new Odata3ClientGenerator(_loggerFactory.CreateLogger(_commandLine.Name));
+                var generator = new Odata3ClientGenerator(logger);
                 generator.GenerateClientProxyClasses(_generatorParams);
 
             }
             catch (CommandParsingException e)
             {
-                Console.WriteLine(e.Message);
+                logger.LogError(e.Message);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                logger.LogError(e.Message);
                 throw;
             }
         }
 
-        private static int Parse()
+        private static int ParseArgs()
         {
-            ExitCode result = ExitCode.NormalLaunch;
+            ExitCode result = ExitCode.Ok;
 
             if (!_commandLine.GetOptions().Any(o => o.HasValue()))
             {
                 _commandLine.ShowHint();
-                return (int) ExitCode.EmptyArgs;
+                return (int) ExitCode.Error;
             }
 
             //опция -m
             if (_metadataUriOption.HasValue())
-            {
                 _generatorParams.MetadataUri = _metadataUriOption.Value();
-                result |= ExitCode.HasMetadata;
-            }
 
             //опция -o
             if (_outputDirOption.HasValue())
@@ -106,29 +112,19 @@ namespace Odata.V3.Cli
                 if (!Directory.Exists(_outputDirOption.Value()))
                     Directory.CreateDirectory(_outputDirOption.Value());
 
-                _generatorParams.OutputPath = _outputDirOption.Value();
-                result |= ExitCode.HasOutputDir;
+                _generatorParams.OutputDir = _outputDirOption.Value();
             }
 
             //опция -f
             if (_filenameOption.HasValue())
-            {
-                _generatorParams.Filename = _filenameOption.Value();
-                result |= ExitCode.HasFilename;
-            }
+                _generatorParams.OutputFilename = _filenameOption.Value();
 
             //опция -ns
             if (_namespaceOption.HasValue())
-            {
                 _generatorParams.NamespacePrefix = _namespaceOption.Value();
-                result |= ExitCode.HasNamespace;
-            }
 
             if (_verboseOption.HasValue())
-            {
                 _generatorParams.Verbose = _verboseOption.HasValue();
-                result |= ExitCode.Verbose;
-            }
 
             if (_proxyOption.HasValue())
             {
@@ -161,15 +157,10 @@ namespace Odata.V3.Cli
                     }
                     _generatorParams.IncludeWebProxy = true;
                 }
-
-                result |= ExitCode.HasProxy;
             }
 
             if (_pluginsOption.HasValue())
-            {
                 _generatorParams.Plugins = _pluginsOption.Values;
-                result |= ExitCode.HasPlugins;
-            }
 
             return (int)result;
         }
