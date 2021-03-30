@@ -1,0 +1,27 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <!--<SignAssembly>true</SignAssembly>
+    <DelaySign>true</DelaySign>-->
+    <!--<AssemblyOriginatorKeyFile>$(SolutionDir).dip\ESB.75ec67bbe1b471ff.public.snk</AssemblyOriginatorKeyFile>-->
+    <Version>3.0.0</Version>
+    <Authors>Andrei Kleban</Authors>
+    <Product>Odata.V3.Cli</Product>
+    <RepositoryUrl>https://github.com/klebanandrey/Odata.V3.Client.Cli.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/klebanandrey/Odata.V3.Client.Cli</PackageProjectUrl>
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageIcon>ODataLogo-96.png</PackageIcon>
+    <PackageProjectUrl>https://topsoft.by</PackageProjectUrl>
+    <PackageTags>odata, client, cli, command-line, generator, proxy</PackageTags>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>4</WarningLevel>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\..\ODataLogo-96.png" Link="ODataLogo-96.png" Pack="true" PackagePath="" />
+  </ItemGroup>
+</Project>
