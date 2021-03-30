@@ -3,19 +3,18 @@ using System.IO;
 using System.Reflection;
 using Microsoft.Extensions.Logging;
 using Odata.V3.Cli.Abstractions;
+using Odata.V3.Cli.Properties;
 
 namespace Odata.V3.Cli
 {
-    internal static class PluginInitilaizer
+    internal static class PluginCreator
     {
-        // Assembly.dll,Namespace.PluginClass
-
         internal static Plugin Create(ILogger logger, GeneratorParams generatorParams, string command)
         {
             var args = command.Split(',');
 
             if (!File.Exists(Path.Combine(Directory.GetCurrentDirectory(), args[0])))
-                throw new FileNotFoundException($"Plugin hasn't found", args[0]);
+                throw new FileNotFoundException(Resources.Plugin_assembly_hasn_t_found, args[0]);
 
             try
             {
@@ -26,7 +25,7 @@ namespace Odata.V3.Cli
             }
             catch (Exception e)
             {
-                logger.LogError($"Plugin {args[0]} error", e);
+                logger.LogError(string.Format(Resources.Plugin_creation__0__error, args[0]), e);
                 throw;
             }
         }

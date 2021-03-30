@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data.Services.Design;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -8,6 +7,7 @@ using System.Security;
 using System.Xml;
 using Microsoft.Extensions.Logging;
 using Odata.V3.Cli.Abstractions;
+using Odata.V3.Cli.Properties;
 
 namespace Odata.V3.Cli.Generator
 {
@@ -23,7 +23,7 @@ namespace Odata.V3.Cli.Generator
         private static string GetMetadata(GeneratorParams generatorParams, out Version edmxVersion)
         {
             if (string.IsNullOrEmpty(generatorParams.MetadataUri))
-                throw new ArgumentNullException("OData Service Endpoint", "Please input the service endpoint");
+                throw new ArgumentNullException("OData Service Endpoint", Resources.Please_input_the_metadata_document_address);
 
             if (File.Exists(generatorParams.MetadataUri))
                 generatorParams.MetadataUri = new FileInfo(generatorParams.MetadataUri).FullName;
@@ -86,7 +86,7 @@ namespace Odata.V3.Cli.Generator
 
                         if (reader.EOF)
                         {
-                            throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "The metadata is an empty file"));
+                            throw new InvalidOperationException(Resources.The_metadata_is_an_empty_file);
                         }
 
                         Constants.SupportedEdmxNamespaces.TryGetValue(reader.NamespaceURI, out edmxVersion);
@@ -97,20 +97,20 @@ namespace Odata.V3.Cli.Generator
             }
             catch (WebException e)
             {
-                throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "Cannot access {0}", generatorParams.MetadataUri), e);
+                throw new InvalidOperationException(string.Format(Resources.Cannot_access_metadata, generatorParams.MetadataUri), e);
             }
         }
 
-        public void GenerateClient(GeneratorParams generatorParams)
+        public void GenerateClientProxyClasses(GeneratorParams generatorParams)
         { 
-            _logger.LogInformation("Generating Client Proxy ...");
+            _logger.LogInformation(Resources.Generating_Client_Proxy____);
 
             try
             {
                 var edmxTmpFile = GetMetadata(generatorParams, out var version);
 
                 if (version == Constants.EdmxVersion4)
-                    throw new ArgumentException($"Wrong EDMX version. Current version={version}");
+                    throw new ArgumentException(string.Format(Resources.Wrong_edx_version, version));
 
                 var generator = new EntityClassGenerator(LanguageOption.GenerateCSharpCode)
                 {
@@ -149,33 +149,33 @@ namespace Odata.V3.Cli.Generator
 
                             foreach (var err in errors)
                                 _logger.LogError(err.Message);
-                            _logger.LogError("Client Proxy for OData V3 was not generated.");
+                            _logger.LogError(Resources.Client_Proxy_for_OData_V3_was_not_generated_);
                         }
                     }
 
                     if (noErrors)
                     {
                         var csFile = new FileInfo(Path.Combine(generatorParams.OutputPath, generatorParams.Filename + ".cs"));
-                        _logger.LogInformation($"Writing file {csFile.FullName}");
+                        _logger.LogInformation(string.Format(Resources.Writing_file__0_, csFile.FullName));
                         fileHandler.AddFileAsync(tempFile, csFile.FullName).ConfigureAwait(true);
 
                         var edmxFile = new FileInfo(Path.Combine(generatorParams.OutputPath, generatorParams.Filename + ".edmx"));
-                        _logger.LogInformation($"Writing file {edmxFile.FullName}");
+                        _logger.LogInformation(string.Format(Resources.Writing_file__0_, edmxFile.FullName));
                         fileHandler.AddFileAsync(edmxTmpFile, edmxFile.FullName).ConfigureAwait(true);
 
                         foreach (var pluginCommand in generatorParams.Plugins)
                         {
-                            var plugin = PluginInitilaizer.Create(_logger, generatorParams, pluginCommand);
+                            var plugin = PluginCreator.Create(_logger, generatorParams, pluginCommand);
                             plugin.PostProcess();
                         }
                     }
                 }
 
-                _logger.LogInformation("Client Proxy for OData V3 was generated.");
+                _logger.LogInformation(Resources.Client_Proxy_for_OData_V3_was_generated_);
             }
             catch (Exception e)
             {
-                _logger.LogCritical("Errors during generation Client Proxy for OData V3", e);
+                _logger.LogCritical(Resources.Errors_during_generation_Client_Proxy_for_OData_V3, e);
                 throw;
             }
         }

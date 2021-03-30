@@ -14,7 +14,7 @@ namespace Odata.V3.Cli
     public class Program
     {
         private static CommandLineApplication _commandLine;
-        private static CommandOption _metadatUriOption;
+        private static CommandOption _metadataUriOption;
         private static CommandOption _outputDirOption;
         private static CommandOption _namespaceOption;
         private static CommandOption _verboseOption;
@@ -34,13 +34,13 @@ namespace Odata.V3.Cli
             _commandLine.HelpOption("-?|-h|--help");
             var version = Assembly.GetEntryAssembly()?.GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
             _commandLine.VersionOption("--version", () => version, () => $"{_commandLine.Description}\n{version}");
-            _metadatUriOption = _commandLine.Option("-m|--metadata|--metadatauri", "Metadata address or local path", CommandOptionType.SingleValue);
+            _metadataUriOption = _commandLine.Option("-m|--metadata|--metadatauri", "Metadata address or local path", CommandOptionType.SingleValue);
             _outputDirOption = _commandLine.Option("-o|--outputdir", "Full path to output directory", CommandOptionType.SingleValue);
             _filenameOption = _commandLine.Option("-f|--filename", "Output file name", CommandOptionType.SingleValue);
             _namespaceOption = _commandLine.Option("-ns|--namespace", "Namespace prefix", CommandOptionType.SingleValue);
             _verboseOption = _commandLine.Option("-v|--verbose", "Verbose", CommandOptionType.NoValue);
             _proxyOption = _commandLine.Option("-p|--proxy", "Proxy settings. Format: domain\\user:password@SERVER:PORT", CommandOptionType.SingleValue);
-            _pluginsOption = _commandLine.Option("-pl|--plugins", "List of plugins", CommandOptionType.MultipleValue);
+            _pluginsOption = _commandLine.Option("-pl|--plugins", "List of plugins. Format: Assembly.dll,Namespace.Class", CommandOptionType.MultipleValue);
 
             _generatorParams = new GeneratorParams();
 
@@ -69,7 +69,7 @@ namespace Odata.V3.Cli
                 _generatorParams.Configuration = new ConfigurationBuilder().AddCommandLine(_commandLine.RemainingArguments.ToArray()).Build();
 
                 var generator = new Odata3ClientGenerator(_loggerFactory.CreateLogger(_commandLine.Name));
-                generator.GenerateClient(_generatorParams);
+                generator.GenerateClientProxyClasses(_generatorParams);
 
             }
             catch (CommandParsingException e)
@@ -81,8 +81,6 @@ namespace Odata.V3.Cli
                 Console.WriteLine(e.Message);
                 throw;
             }
-
-            args = _commandLine.RemainingArguments.ToArray();
         }
 
         private static int Parse()
@@ -96,9 +94,9 @@ namespace Odata.V3.Cli
             }
 
             //опция -m
-            if (_metadatUriOption.HasValue())
+            if (_metadataUriOption.HasValue())
             {
-                _generatorParams.MetadataUri = _metadatUriOption.Value();
+                _generatorParams.MetadataUri = _metadataUriOption.Value();
                 result |= ExitCode.HasMetadata;
             }
 
