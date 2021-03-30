@@ -27,7 +27,7 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: packages
-        path: /**/*.nupkg      
+        path: src/**/*.nupkg      
       
     - name: Download all workflow run artifacts
       uses: actions/download-artifact@v2      
