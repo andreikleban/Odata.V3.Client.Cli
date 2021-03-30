@@ -1,4 +1,4 @@
-name: .NET
+name: Odata.V3.Client.Cli build
 
 on:
   push:
@@ -27,7 +27,7 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: packages
-        path: path/**/*.nupkg      
+        path: /**/*.nupkg      
       
     - name: Download all workflow run artifacts
       uses: actions/download-artifact@v2      
