@@ -22,7 +22,6 @@ namespace Odata.V3.Cli
         private static CommandOption _namespaceOption;
         private static CommandOption _verboseOption;
 
-        private static ILoggerFactory _loggerFactory;
         private static CommandOption _proxyOption;
         private static GeneratorParams _generatorParams;
         private static CommandOption _filenameOption;
@@ -37,8 +36,6 @@ namespace Odata.V3.Cli
             _commandLine = new CommandLineApplication(false);
             _commandLine.Description = "Client Proxy generator for OData V3";
             _commandLine.Name = typeof(Program).Assembly.GetName().Name;
-
-            var logger = _loggerFactory.CreateLogger(_commandLine.Name);
 
             _commandLine.HelpOption("-?|-h|--help");
             var version = Assembly.GetEntryAssembly()?.GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
@@ -55,25 +52,27 @@ namespace Odata.V3.Cli
 
             _commandLine.OnExecute(ParseArgs);
 
+
+            var commandLineParseResult = (ExitCode)_commandLine.Execute(args);
+
+            var loggerFactory = LoggerFactory.Create(builder =>
+            {
+                builder
+                    .AddFilter(_commandLine.Name, _verboseOption.HasValue() ? LogLevel.Debug : LogLevel.None)
+                    .AddConsole(options =>
+                    {
+                        options.Format = ConsoleLoggerFormat.Default;
+                        options.TimestampFormat = "hh:mm:ss ";
+                        options.IncludeScopes = false;
+                    });
+            });
+            var logger = loggerFactory.CreateLogger(_commandLine.Name);
+
             try
             {
-                var commandLineParseResult = (ExitCode) _commandLine.Execute(args);
-
                 // ExitCode.Default returns if options -h or --version is
                 if (commandLineParseResult <= ExitCode.Default)
                     return;
-
-                _loggerFactory = LoggerFactory.Create(builder =>
-                {
-                    builder
-                        .AddFilter(_commandLine.Name, _verboseOption.HasValue() ? LogLevel.Debug : LogLevel.None)
-                        .AddConsole(options =>
-                        {
-                            options.Format = ConsoleLoggerFormat.Default;
-                            options.TimestampFormat = "hh:mm:ss ";
-                            options.IncludeScopes = false;
-                        });
-                });
 
                 _generatorParams.Configuration = new ConfigurationBuilder().AddCommandLine(_commandLine.RemainingArguments.ToArray()).Build();
 
