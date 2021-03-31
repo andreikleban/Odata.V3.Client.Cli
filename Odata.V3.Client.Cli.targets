@@ -3,7 +3,6 @@
 		<Version>1.0.0</Version>
 		<Authors>Andrei Kleban</Authors>
 		<Product>Odata.V3.Cli</Product>
-		<RepositoryUrl>https://github.com/klebanandrey/Odata.V3.Client.Cli.git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageProjectUrl>https://github.com/klebanandrey/Odata.V3.Client.Cli</PackageProjectUrl>
 		<NeutralLanguage>en</NeutralLanguage>
@@ -12,6 +11,8 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(DebugType)' == 'portable'">
 		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
