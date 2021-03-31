@@ -2,7 +2,7 @@
 using System.IO;
 using Microsoft.Extensions.Configuration;
 
-namespace Odata.V3.Cli.Abstractions
+namespace Odata.V3.Client.Cli.Abstractions
 {
     /// <summary>
     /// Proxy classes generator's parameters

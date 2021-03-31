@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Odata.V3.Cli.Tests
+namespace Odata.V3.Client.Cli.Tests
 {
     [TestClass]
     public class GeneratorTest
@@ -48,28 +48,28 @@ namespace Odata.V3.Cli.Tests
 
 
         [TestMethod]
-        [DataRow(new string[] { "-m", "Assets\\metadataV3.edmx", "-o", OutputDir, "-v", "-f", "OdataService", "-pl=Odata.V3.Cli.Tests.dll,Odata.V3.Cli.Tests.TestPlugin" })]
+        [DataRow(new string[] { "-m", "Assets\\metadataV3.edmx", "-o", OutputDir, "-v", "-f", "OdataService", "-pl=Odata.V3.Client.Cli.Tests.dll,Odata.V3.Client.Cli.Tests.TestPlugin" })]
         public void PluginEmptySetting(string[] args)
         {
             Assert.ThrowsException<ArgumentException>(() => Program.Main(args));
         }
 
         [TestMethod]
-        [DataRow(new string[] { "-m", "Assets\\metadataV3.edmx", "-o", OutputDir, "-v", "-f", "OdataService", "-pl=Odata.V3.Cli.Tests.TestPlugin" })]
+        [DataRow(new string[] { "-m", "Assets\\metadataV3.edmx", "-o", OutputDir, "-v", "-f", "OdataService", "-pl=Odata.V3.Client.Cli.Tests.TestPlugin" })]
         public void WrongPluginName(string[] args)
         {
             Assert.ThrowsException<ArgumentException>(() => Program.Main(args));
         }
 
         [TestMethod]
-        [DataRow(new string[] { "-m", "Assets\\metadataV3.edmx", "-o", OutputDir, "-v", "-f", "OdataService", "-pl=Assembly.dll,Odata.V3.Cli.Tests.TestPlugin" })]
+        [DataRow(new string[] { "-m", "Assets\\metadataV3.edmx", "-o", OutputDir, "-v", "-f", "OdataService", "-pl=Assembly.dll,Odata.V3.Client.Cli.Tests.TestPlugin" })]
         public void WrongPluginAssemblyName(string[] args)
         {
             Assert.ThrowsException<FileNotFoundException>(() => Program.Main(args));
         }
 
         [TestMethod]
-        [DataRow(new string[] { "-m", "Assets\\metadataV3.edmx", "-o", OutputDir, "-v", "-f", "OdataService", "-pl=Odata.V3.Cli.Tests.dll,Odata.V3.Cli.Tests.WrongTestPlugin" })]
+        [DataRow(new string[] { "-m", "Assets\\metadataV3.edmx", "-o", OutputDir, "-v", "-f", "OdataService", "-pl=Odata.V3.Cli.Tests.dll,Odata.V3.Client.Cli.Tests.WrongTestPlugin" })]
         public void WrongPluginTypeName(string[] args)
         {
             Assert.ThrowsException<TypeLoadException>(() => Program.Main(args));
@@ -77,7 +77,7 @@ namespace Odata.V3.Cli.Tests
 
 
         [TestMethod]
-        [DataRow(new string[] { "-m", "Assets\\metadataV3.edmx", "-o", OutputDir, "-v", "-f", "OdataService", "-pl=Odata.V3.Cli.Tests.dll,Odata.V3.Cli.Tests.TestPlugin", "testSetting=testString" })]
+        [DataRow(new string[] { "-m", "Assets\\metadataV3.edmx", "-o", OutputDir, "-v", "-f", "OdataService", "-pl=Odata.V3.Client.Cli.Tests.dll,Odata.V3.Client.Cli.Tests.TestPlugin", "testSetting=testString" })]
         public void PluginTest(string[] args)
         {
             Program.Main(args);

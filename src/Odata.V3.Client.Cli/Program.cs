@@ -6,10 +6,10 @@ using Microsoft.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
-using Odata.V3.Cli.Abstractions;
-using Odata.V3.Cli.Generator;
+using Odata.V3.Client.Cli.Abstractions;
+using Odata.V3.Client.Cli.Generator;
 
-namespace Odata.V3.Cli
+namespace Odata.V3.Client.Cli
 {
     /// <summary>
     /// Main class

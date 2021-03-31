@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using Microsoft.Extensions.Logging;
-using Odata.V3.Cli.Abstractions;
+using Odata.V3.Client.Cli.Abstractions;
 
-namespace Odata.V3.Cli.Tests
+namespace Odata.V3.Client.Cli.Tests
 {
     public class TestPlugin : Plugin
     {

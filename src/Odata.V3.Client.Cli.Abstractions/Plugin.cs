@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace Odata.V3.Cli.Abstractions
+namespace Odata.V3.Client.Cli.Abstractions
 {
     /// <summary>
     /// Base plugin class

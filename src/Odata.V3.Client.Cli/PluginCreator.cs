@@ -2,10 +2,10 @@
 using System.IO;
 using System.Reflection;
 using Microsoft.Extensions.Logging;
-using Odata.V3.Cli.Abstractions;
-using Odata.V3.Cli.Properties;
+using Odata.V3.Client.Cli.Abstractions;
+using Odata.V3.Client.Cli.Properties;
 
-namespace Odata.V3.Cli
+namespace Odata.V3.Client.Cli
 {
     internal static class PluginCreator
     {

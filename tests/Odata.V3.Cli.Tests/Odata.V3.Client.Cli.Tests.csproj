@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Odata.V3.Client.Cli\Odata.V3.Cli.csproj" />
+    <ProjectReference Include="..\..\src\Odata.V3.Client.Cli\Odata.V3.Client.Cli.csproj" />
   </ItemGroup>
 
   <ItemGroup>

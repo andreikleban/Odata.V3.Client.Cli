@@ -6,10 +6,10 @@ using System.Net;
 using System.Security;
 using System.Xml;
 using Microsoft.Extensions.Logging;
-using Odata.V3.Cli.Abstractions;
-using Odata.V3.Cli.Properties;
+using Odata.V3.Client.Cli.Abstractions;
+using Odata.V3.Client.Cli.Properties;
 
-namespace Odata.V3.Cli.Generator
+namespace Odata.V3.Client.Cli.Generator
 {
     /// <summary>
     /// Proxy classes generator

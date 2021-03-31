@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Odata.V3.Cli
+namespace Odata.V3.Client.Cli
 {
     /// <summary>
     /// Command line args parsing exit codes

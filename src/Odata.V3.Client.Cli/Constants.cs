@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Odata.V3.Cli
+namespace Odata.V3.Client.Cli
 {
     internal class Constants
     {

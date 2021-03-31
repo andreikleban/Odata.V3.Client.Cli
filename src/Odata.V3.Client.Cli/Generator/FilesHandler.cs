@@ -2,7 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Odata.V3.Cli.Generator
+namespace Odata.V3.Client.Cli.Generator
 {
     internal class FilesHandler
     {
