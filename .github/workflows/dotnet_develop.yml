@@ -1,8 +1,6 @@
 name: develop build
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -22,17 +20,4 @@ jobs:
     - name: Build
       run: dotnet build --no-restore --configuration Release
     - name: Test
-      run: dotnet test --no-build --verbosity normal --configuration Release
-      
-    - uses: actions/upload-artifact@v2
-      with:
-        name: packages
-        path: src/**/*.nupkg      
-    
-    - uses: actions/upload-artifact@v2
-      with:
-        name: symbols
-        path: src/**/*.snupkg              
-      
-    - name: Download all workflow run artifacts
-      uses: actions/download-artifact@v2      
+      run: dotnet test --no-build --verbosity normal --configuration Release     
