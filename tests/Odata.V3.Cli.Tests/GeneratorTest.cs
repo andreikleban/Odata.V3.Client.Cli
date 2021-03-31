@@ -69,7 +69,7 @@ namespace Odata.V3.Client.Cli.Tests
         }
 
         [TestMethod]
-        [DataRow(new string[] { "-m", "Assets\\metadataV3.edmx", "-o", OutputDir, "-v", "-f", "OdataService", "-pl=Odata.V3.Cli.Tests.dll,Odata.V3.Client.Cli.Tests.WrongTestPlugin" })]
+        [DataRow(new string[] { "-m", "Assets\\metadataV3.edmx", "-o", OutputDir, "-v", "-f", "OdataService", "-pl=Odata.V3.Client.Cli.Tests.dll,Odata.V3.Client.Cli.Tests.WrongTestPlugin" })]
         public void WrongPluginTypeName(string[] args)
         {
             Assert.ThrowsException<TypeLoadException>(() => Program.Main(args));
