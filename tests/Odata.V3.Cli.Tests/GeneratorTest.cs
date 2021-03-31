@@ -40,6 +40,15 @@ namespace Odata.V3.Client.Cli.Tests
         }
 
         [TestMethod]
+        [DataRow(new string[] { "-m", "Assets\\metadataV3.edmx", "-o", OutputDir, "-v", "-f", "OdataService", "-ns", "TestNamespace" })]
+        public void NamespaceTest(string[] args)
+        {
+            Program.Main(args);
+            var file = File.ReadAllText($"{OutputDir}\\OdataService.cs");
+            Assert.IsTrue(file.Contains("TestNamespace"));
+        }
+
+        [TestMethod]
         [DataRow(new string[] { "-m", "Assets\\metadataV4.edmx", "-o", OutputDir, "-v", "-f", "OdataService" })]
         public void WithMetadataV4(string[] args)
         {
