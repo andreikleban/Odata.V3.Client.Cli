@@ -28,6 +28,11 @@ jobs:
       with:
         name: packages
         path: src/**/*.nupkg      
+    
+    - uses: actions/upload-artifact@v2
+      with:
+        name: symbols
+        path: src/**/*.snupkg              
       
     - name: Download all workflow run artifacts
       uses: actions/download-artifact@v2      
