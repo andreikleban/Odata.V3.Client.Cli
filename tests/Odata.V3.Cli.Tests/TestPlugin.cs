@@ -13,6 +13,7 @@ namespace Odata.V3.Client.Cli.Tests
 
         public override void Execute()
         {
+            Logger.LogInformation($"Executing {nameof(TestPlugin)}");
             var pluginSetting = GeneratorParams.Configuration["testSetting"];
             if (string.IsNullOrWhiteSpace(pluginSetting))
                 throw new ArgumentException("testSetting is empty");
