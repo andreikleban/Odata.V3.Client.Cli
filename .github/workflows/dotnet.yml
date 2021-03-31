@@ -1,10 +1,10 @@
-name: Odata.V3.Client.Cli build
+name: develop build
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:
