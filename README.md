@@ -1,6 +1,6 @@
 # Odata.V3.Client.Cli
 
-Odata.V3.Client.Cli command-line tool for generation OData client proxy classes. It's based on [OData Connected Services Extension](https://github.com/OData/ODataConnectedService) and generates OData V3 Client proxy classes from command-line.
+Odata.V3.Client.Cli command-line tool for generation OData client proxy classes. It's based on [OData Connected Services Extension](https://github.com/OData/ODataConnectedService) and generates OData V3 Client proxy classes from the command-line.
 
 
 # Command-line arguments
