@@ -1,4 +1,5 @@
 # Odata.V3.Client.Cli
+[![NuGet](https://img.shields.io/nuget/v/Odata.V3.Client.Cli.svg)](https://www.nuget.org/packages/Odata.V3.Client.Cli/)
 
 Odata.V3.Client.Cli is a command-line tool for generation OData client proxy classes. It's based on [OData Connected Services Extension](https://github.com/OData/ODataConnectedService).
 
