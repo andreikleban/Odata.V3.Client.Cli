@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net472</TargetFramework>
-	  <Description>Odata.V3.Client.Cli command-line tool for generation OData client proxy classes. It's based on OData Connected Services Extension and enables to generate classes from command-line.</Description>
+	  <Description>Odata.V3.Client.Cli is a command-line tool for generation OData client proxy classes. It's based on OData Connected Services Extension.</Description>
 	  <!--<PackAsTool>true</PackAsTool>
 	  <ToolCommandName>botsay</ToolCommandName>
 	  <PackageOutputPath>./nupkg</PackageOutputPath>-->

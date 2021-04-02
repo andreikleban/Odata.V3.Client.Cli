@@ -1,8 +1,8 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
-		<Version>1.0.1</Version>
+		<Version>1.0.2</Version>
 		<Authors>Andrei Kleban</Authors>
-		<Product>Odata.V3.Cli</Product>
+		<Product>Odata.V3.Client.Cli</Product>
 		<RepositoryType>git</RepositoryType>
 		<PackageProjectUrl>https://github.com/klebanandrey/Odata.V3.Client.Cli</PackageProjectUrl>
 		<NeutralLanguage>en</NeutralLanguage>
