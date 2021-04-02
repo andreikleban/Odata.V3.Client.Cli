@@ -32,9 +32,9 @@ Metadata document, absolute output directory, output classes namespace and verbo
 ```
   Odata.V3.Client.Cli.exe -m c:\temp\metadata.xml -o c:\temp\OutClientDir -ns Client.Namespace -v
 ```
-Metadata document and proxy server settings:
+OData V3 metadata endpoint and proxy server settings:
 ```
-  Odata.V3.Client.Cli.exe -m c:\temp\metadata.xml -p domain\user:userpassword@proxyserver:8080
+  Odata.V3.Client.Cli.exe -m https://services.odata.org/V3/OData/OData.svc/$metadata -p domain\user:userpassword@proxyserver:8080
 ```
 Metadata document and list of postprocessing plugins:
 ```
