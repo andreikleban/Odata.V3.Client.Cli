@@ -3,12 +3,14 @@ name: release build
 on:
   pull_request:
     branches: [ main ]
-  push:
-    branches: [ main ]    
+    paths:
+       - 'src/**'
+       - 'tests/**'
+       - '*.sln'
+       - '*.targets'
 
 jobs:
   build:
-
 
     runs-on: windows-latest
 

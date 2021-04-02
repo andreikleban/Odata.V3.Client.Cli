@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Odata.V3.Client.Cli.targets = Odata.V3.Client.Cli.targets
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Odata.V3.Client.Cli.Tests", "tests\Odata.V3.Cli.Tests\Odata.V3.Client.Cli.Tests.csproj", "{90104A1A-D81C-4998-8334-77F351759746}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Odata.V3.Client.Cli.Tests", "tests\Odata.V3.Client.Cli.Tests\Odata.V3.Client.Cli.Tests.csproj", "{90104A1A-D81C-4998-8334-77F351759746}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
